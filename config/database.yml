@@ -1,0 +1,28 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+
+default_primary: &default_primary
+  <<: *default
+  host: <%= Rails.application.credentials.db[:host] %>
+  port: <%= Rails.application.credentials.db[:port] %>
+  username: <%= Rails.application.credentials.db[:user] %>
+  password: <%= Rails.application.credentials.db[:pass] %>
+  pool: <%= Rails.application.credentials.db[:pool] %>
+
+development:
+  <<: *default_primary
+  database: discuss_development
+
+test:
+  <<: *default_primary
+  database: discuss_test
+
+production:
+  <<: *default
+  database: <%= ENV['DB_NAME'] %>
+  host: <%= ENV['DB_HOSTNAME'] %>
+  port: <%= ENV['DB_PORT'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  pool: <%= ENV['DB_POOL'] || 5 %>
