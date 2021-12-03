@@ -20,9 +20,9 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV['DB_NAME'] %>
+  database: discuss_development #<%= ENV['DB_NAME'] %>
   host: <%= ENV['DB_HOSTNAME'] %>
   port: <%= ENV['DB_PORT'] %>
-  username: <%= ENV['DB_USERNAME'] %>
+  username: discuss #<%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
   pool: <%= ENV['DB_POOL'] || 5 %>
