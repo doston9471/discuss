@@ -1,0 +1,17 @@
+---
+:concurrency: 5
+development:
+  :queues:
+  - discuss_dev_critical
+  - discuss_dev_default
+  - discuss_dev_low
+production:
+  :concurrency: 10
+  :queues:
+  - discuss_production_critical
+  - discuss_production_default
+  - discuss_production_low
+:queues:
+  - critical
+  - default
+  - low

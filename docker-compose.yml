@@ -1,0 +1,65 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ../tmp/db:/var/lib/postgresql/data
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432
+    healthcheck:
+      test: pg_isready -U postgres -h 127.0.0.1
+      interval: 5s
+
+  web:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    restart: always
+    command:
+      - |
+        wait-for-it --parallel --timeout 10 --service db:5432 --service redis:6379 --
+        rm -f tmp/pids/server.pid && (bundle check || bundle install) && rake db:prepare && bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ../.:/myapp
+    environment:
+      PG_PASSWORD: password
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+      - redis
+
+  sidekiq:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    restart: always
+    command:
+      - |
+        wait-for-it --parallel --timeout 10 --service db:5432 --service redis:6379 --service web:3000 --
+        (bundle check || bundle install) && bundle exec sidekiq
+    volumes:
+      - ../.:/myapp
+    depends_on:
+      - db
+      - redis
+      - web
+
+  redis:
+    image: redis:alpine
+    restart: always
+    environment:
+      ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - 6379
+    healthcheck:
+      test: redis-cli ping
+      interval: 2s
+      timeout: 3s
+      retries: 30

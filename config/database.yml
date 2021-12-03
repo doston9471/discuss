@@ -1,29 +1,28 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV['DB_POOL'] || 5 %>
 
-# default_primary: &default_primary
-#   <<: *default
-#   host: <%= Rails.application.credentials.db[:host] %>
-#   port: <%= Rails.application.credentials.db[:port] %>
-#   username: <%= Rails.application.credentials.db[:user] %>
-#   password: <%= Rails.application.credentials.db[:pass] %>
-#   pool: <%= Rails.application.credentials.db[:pool] %>
+default_primary: &default_primary
+  <<: *default
+  host: <%= Rails.application.credentials.db[:host] %>
+  port: <%= Rails.application.credentials.db[:port] %>
+  username: <%= Rails.application.credentials.db[:user] %>
+  password: <%= Rails.application.credentials.db[:pass] %>
+  pool: <%= Rails.application.credentials.db[:pool] %>
 
 development:
-  <<: *default #_primary
+  <<: *default_primary
   database: discuss_development
 
 test:
-  <<: *default #_primary
+  <<: *default_primary
   database: discuss_test
 
 production:
-  <<: *default
+  <<: *default_primary
   database: discuss_development #<%= ENV['DB_NAME'] %>
   # host: <%= ENV['DB_HOSTNAME'] %>
   # port: <%= ENV['DB_PORT'] %>
-  username: discuss #<%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
+  # username: <%= ENV['DB_USERNAME'] %>
+  # password: <%= ENV['DB_PASSWORD'] %>
   # pool: <%= ENV['DB_POOL'] || 5 %>
