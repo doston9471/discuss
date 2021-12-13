@@ -10,6 +10,7 @@ WORKDIR /myapp
 
 COPY Gemfile ./
 COPY Gemfile.lock ./
+COPY entrypoint.sh ./
 
 RUN bundle install
 RUN yarn install --check-files
