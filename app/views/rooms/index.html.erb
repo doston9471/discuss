@@ -3,8 +3,8 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-3">
-      <div class="rooms-sidebar">
+    <div class="col-3 rooms-sidebar">
+      <%# <div class="rooms-sidebar"> %>
         <div class="card no-outline">
           <div class="card-body">
             <small>Logged in as</small><br>
@@ -13,7 +13,7 @@
               <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger"  %>
             <% end %>
           </div>
-        </div>
+        <%# </div> %>
         <hr>
         <%= render 'form', room: Room.new %>
         <hr>
@@ -32,7 +32,7 @@
         <% end %>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-9">
       <% if @room.present? %>
         <div class="chat-room">
           <nav class="navbar navbar-light">
@@ -50,20 +50,6 @@
             <%= render 'messages/form', message: Message.new, room: @room %>
           </div>
         </div>
-      <% end %>
-    </div>
-    <div class="col-3">
-      <% if @room.present? %>
-        <nav class="navbar navbar-light">
-          <span class="navbar-brand" href="#">
-            <b>Users</b>
-          </span>
-        </nav>
-        <% @room.users.uniq.each do |user| %>
-          <div class="card-body">
-            <span class='name'><%= user.username %></span><br>
-          </div>
-        <% end %>
       <% end %>
     </div>
   </div>

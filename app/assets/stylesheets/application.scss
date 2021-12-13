@@ -13,13 +13,13 @@
  *= require_tree .
  *= require_self
  */
- body {
-  overflow-y: hidden;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-}
+//  body {
+//   overflow-y: hidden;
+//   ::-webkit-scrollbar {
+//     display: none;
+//   }
+//   -ms-overflow-style: none;
+// }
 
 .chat-room {
   height: 100vh;
@@ -117,12 +117,12 @@
 
 .rooms-sidebar {
   border-right: 1px solid #eeeeee;
-  height: 100%;
-  position: absolute;
-  z-index: initial;
-  top: 0;
-  left: 0;
-  overflow-x: hidden;
+  // height: 100%;
+  // position: absolute;
+  // z-index: initial;
+  // top: 0;
+  // left: 0;
+  // overflow-x: hidden;
 }
 
 // .activity-status {
