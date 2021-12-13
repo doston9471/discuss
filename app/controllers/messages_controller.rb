@@ -26,6 +26,8 @@ class MessagesController < ApplicationController
     @message.save
 
     SendMessageJob.perform_now(@message)
+
+    redirect_to @message.room
   end
 
   # PATCH/PUT /messages/1 or /messages/1.json
