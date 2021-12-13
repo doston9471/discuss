@@ -117,6 +117,12 @@
 
 .rooms-sidebar {
   border-right: 1px solid #eeeeee;
+  height: 100%;
+  position: absolute;
+  z-index: initial;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
 }
 
 // .activity-status {
