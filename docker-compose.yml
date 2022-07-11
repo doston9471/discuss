@@ -21,7 +21,7 @@ services:
     stdin_open: true
     tty: true
     restart: always
-    entrypoint: entrypoint.sh
+    # entrypoint: entrypoint.sh
     command:
       - |
         wait-for-it --parallel --timeout 10 --service db:5432 --service redis:6379 --

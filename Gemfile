@@ -1,14 +1,13 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.1'
+ruby '3.1.2'
 
-gem 'rails', '>= 7.0.2.3'
+gem 'rails', '>= 7.0.3'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'sass-rails', '>= 6'
-gem 'webpacker', '~> 5.0'
-gem 'turbolinks', '~> 5'
+gem "sprockets-rails"
 gem 'jbuilder', '~> 2.7'
 gem 'redis', '~> 4.5', '>= 4.5.1'
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -42,4 +41,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rails_12factor', '~> 0.0.3', group: :production
 gem 'devise', '~> 4.8'
 gem 'sidekiq', '~> 6.3', '>= 6.3.1'
-# gem 'cable_ready', '~> 4.5'
+gem "importmap-rails", "~> 1.1"
+gem 'turbo-rails'
+gem "stimulus-rails"
