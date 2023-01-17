@@ -21,11 +21,12 @@ class MessagesController < ApplicationController
 
   # POST /messages or /messages.json
   def create
-    @message = Message.new(message_params)
-    @message.user = current_user
-    @message.save
+    # @message = Message.new(message_params)
+    # @message.user = current_user
+    # @message.save
+    @message = current_user.messages.create(message_params)
 
-    SendMessageJob.perform_now(@message)
+    # SendMessageJob.perform_now(@message)
 
     redirect_to @message.room
   end

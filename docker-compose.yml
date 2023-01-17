@@ -16,7 +16,7 @@ services:
 
   web:
     build:
-      context: ../
+      context: .
       dockerfile: Dockerfile
     stdin_open: true
     tty: true
@@ -27,9 +27,10 @@ services:
         wait-for-it --parallel --timeout 10 --service db:5432 --service redis:6379 --
         rm -f tmp/pids/server.pid && (bundle check || bundle install) && rake db:prepare && bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
-      - ../.:/myapp
+      - ./.:/myapp
     environment:
       PG_PASSWORD: password
+      REDIS_URL: redis://redis:6379/0
     ports:
       - '3000:3000'
     depends_on:
@@ -38,7 +39,7 @@ services:
 
   sidekiq:
     build:
-      context: ../
+      context: .
       dockerfile: Dockerfile
     restart: always
     command:
@@ -46,7 +47,9 @@ services:
         wait-for-it --parallel --timeout 10 --service db:5432 --service redis:6379 --service web:3000 --
         (bundle check || bundle install) && bundle exec sidekiq
     volumes:
-      - ../.:/myapp
+      - ./.:/myapp
+    environment:
+      REDIS_URL: redis://redis:6379/0
     depends_on:
       - db
       - redis

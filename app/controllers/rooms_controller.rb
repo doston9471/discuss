@@ -9,6 +9,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1 or /rooms/1.json
   def show
     @rooms = Room.all
+    @message = Message.new
     render 'index'
   end
 

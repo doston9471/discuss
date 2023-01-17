@@ -3,36 +3,32 @@ PROJECT ?= discuss
 export PROJECT
 
 dev-build:
-		docker-compose --project-directory docker -p $(PROJECT) build
+	docker-compose -p $(PROJECT) build
 
 dev-up:
-		docker-compose --project-directory docker -p $(PROJECT) up -d
+	docker-compose -p $(PROJECT) up -d
 
 dev-up-build:
-		docker-compose --project-directory docker -p $(PROJECT) up -d --build
+	docker-compose -p $(PROJECT) up -d --build
 
 bash:
-		docker-compose --project-directory docker -p $(PROJECT) exec web bash
+	docker-compose -p $(PROJECT) exec web bash
 
 
 dev: dev-up-build bash
 
 
 logs-web:
-		docker-compose --project-directory docker -p $(PROJECT) logs --follow --tail 100 web
+	docker-compose -p $(PROJECT) logs --follow --tail 100 web
 
 test:
-		docker-compose --project-directory docker -p $(PROJECT) exec web rspec
-
-stats:
-		docker-compose --project-directory docker -p $(PROJECT) exec web rspec && open coverage/index.html	# only for MacOS; if Debian/Linux 'xdg-open coverage/index.html';
-
-ci:
-		docker-compose --project-directory docker -p $(PROJECT) exec web bash -c "rubocop; rspec; rake rswag"
+	docker-compose -p $(PROJECT) exec web rspec
 
 down:
 	docker-compose \
-		--project-directory docker \
 		-p $(PROJECT) \
 		down \
 		--remove-orphans
+
+docker-clean:
+	docker system prune --all --volumes
